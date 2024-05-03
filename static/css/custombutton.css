@@ -1,0 +1,64 @@
+.custom-button {
+    background-color: #4CAF50; /* Зеленый цвет */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.custom-button:hover {
+    background-color: #45a049; /* Темнозеленый цвет при наведении */
+}
+.content-lg{
+    padding: 200px 200px;
+}
+.custom-file-input {
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-file-input input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.custom-file-input::before {
+    content: 'Выберите файл';
+    display: block;
+    background: #3e6fc7;
+    color: white;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 3px;
+}
+
+.custom-file-input:hover::before {
+    background: #304e87;
+}
+
+.custom-file-input:active::before {
+    background: #283f73;
+}
+.up{
+   display: grid;
+    grid-template-columns:repeat(2,1fr);
+}

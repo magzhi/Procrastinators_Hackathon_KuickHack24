@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8"/>
+    <title>Passport check</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+
+    <!-- GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
+    <link href="static/vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+    <!-- PAGE LEVEL PLUGIN STYLES -->
+    <link href="static/css/animate.css" rel="stylesheet">
+    <link href="static/vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css"/>
+    <link href="static/css/custombutton.css" rel="stylesheet">
+    <!-- THEME STYLES -->
+    <link href="static/css/layout.min.css" rel="stylesheet" type="text/css"/>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico"/>
+       <style>
+        /* Стили для ссылок в шапке */
+        .navbar-nav {
+            text-align: center;
+        }
+
+        .navbar-nav li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .navbar-nav li a {
+            color: #000000;
+            font-weight: 500;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        .navbar-nav li a:hover,
+        .navbar-nav li a:focus {
+            border-bottom-color: #3e6fc7; /* Цвет подчеркивания при наведении */
+        }
+    </style>
+</head>
+<body>
+
+<header class="header navbar-fixed-top">
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            <div class="menu-container">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="toggle-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse nav-collapse">
+                <div class="menu-container">
+                    <ul class="navbar-nav navbar-nav-right">
+                        <!-- Добавленные ссылки -->
+                        <li><a>О нас</a></li>
+                        <li><a>Контакты</a></li>
+                        <li><a>+77019990747</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <img class="logo-img" src="static/img/banner.jpg" alt="Логотип">
+                    </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="bg-color-sky-light overflow-h">
+    <div class="content-lg container">
+        <div class="row margin-b-40">
+            <div class="col-sm-6">
+                <h2>Showcase</h2>
+               <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+                   <!-- Переместите кнопку выбора файла перед кнопкой Submit -->
+                   <input type="file" name="photo" id="fileInput" accept="image/*" onchange="previewImage()" style="display: none;">
+                   <label for="fileInput" class="up custom-file-input"></label>
+                   <!-- Поместите кнопку Submit после кнопки выбора файла -->
+                   <button onclick="uploadFile()" type="submit" class="up custom-button">Submit</button>
+               </form>
+                <div id="imagePreview"></div>
+                {% if message %}
+                <div class="message">
+                    {{ message }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="footer-seperator">
+        <div class="content-lg container">
+            <div class="row">
+                <div class="col-sm-2 sm-margin-b-50">
+                    <ul class="list-unstyled footer-list">
+                        <li class="footer-list-item"><a class="footer-list-link" href="#">Home</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 sm-margin-b-30">
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<a href="javascript:void(0);" class="js-back-to-top back-to-top">Top</a>
+
+<script src="static/vendor/jquery.min.js" type="text/javascript"></script>
+<script src="static/vendor/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="static/vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="static/vendor/jquery.easing.js" type="text/javascript"></script>
+<script src="static/vendor/jquery.back-to-top.js" type="text/javascript"></script>
+<script src="static/vendor/jquery.smooth-scroll.js" type="text/javascript"></script>
+<script src="static/vendor/jquery.wow.min.js" type="text/javascript"></script>
+<script src="static/vendor/swiper/js/swiper.jquery.min.js" type="text/javascript"></script>
+<script src="static/vendor/masonry/jquery.masonry.pkgd.min.js" type="text/javascript"></script>
+<script src="static/vendor/masonry/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+<script src="static/js/layout.min.js" type="text/javascript"></script>
+<script src="static/js/components/wow.min.js" type="text/javascript"></script>
+<script src="static/js/components/swiper.min.js" type="text/javascript"></script>
+<script src="static/js/components/masonry.min.js" type="text/javascript"></script>
+
+<!-- Скрипт для предпросмотра изображения -->
+<script>
+    function previewImage() {
+        var fileInput = document.getElementById('fileInput');
+        var files = fileInput.files;
+
+        if (files.length > 0) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                var imgElement = document.createElement('img');
+                imgElement.src = event.target.result;
+                imgElement.style.maxWidth = '120%'; // Установите максимальную ширину изображения по вашему желанию
+                imgElement.style.height = 'auto';
+                document.getElementById('imagePreview').innerHTML = '';
+                document.getElementById('imagePreview').appendChild(imgElement);
+            };
+            reader.readAsDataURL(files[0]);
+        }
+    }
+</script>
+<script>
+    function submitForm() {
+        var formData = new FormData(document.getElementById('uploadForm'));
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log(result); // Показать результат в консоли для отладки
+            // Добавьте код для обработки успешной отправки формы, если нужно
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Добавьте обработку ошибок, если нужно
+        });
+    }
+</script>
+
+    <script>
+        function uploadFile() {
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.photos;
+
+            var formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Create a new <p> element with the generated text
+                var newElement = document.createElement("p");
+                newElement.textContent = data.text;
+
+                // Append the new <p> element to the imagePreview
+                document.getElementById("imagePreview").appendChild(newElement);
+
+                console.log(text);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+</body>
+</html>
